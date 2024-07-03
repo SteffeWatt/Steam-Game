@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -23,6 +24,9 @@ public class Player : MonoBehaviour
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
 
+    private GameObject? parent;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +40,7 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        if(rb.velocity.x > 0.8 || rb.velocity.x < -0.8)
+        if (rb.velocity.x > 0.8 || rb.velocity.x < -0.8)
         {
             isMoving = true;
         }
@@ -53,12 +57,12 @@ public class Player : MonoBehaviour
         {
             cyoteCounter -= Time.deltaTime;
         }
-        
-        if (Input.GetKeyDown("space")) 
+
+        if (Input.GetKeyDown("space"))
         {
             jumpBufferCounter = jumpBufferTime;
         }
-        else 
+        else
         {
             jumpBufferCounter -= Time.deltaTime;
         }
@@ -66,17 +70,17 @@ public class Player : MonoBehaviour
 
 
         float moveHorizontal = Input.GetAxis("Horizontal");
-        
+
         rb.velocity = new Vector2(moveHorizontal * 10, rb.velocity.y);
         Flip();
         rbAnimator.SetFloat("speed", Mathf.Abs(moveHorizontal));
         rbAnimator.SetFloat("fallSpeed", rb.velocity.y);
         rbAnimator.SetBool("isGrounded", isGrounded);
-        
+
 
         if (jumpBufferCounter > 0f && cyoteCounter > 0f)
         {
-            rb.velocity = new Vector2( rb.velocity.x, JumpPower);
+            rb.velocity = new Vector2(rb.velocity.x, JumpPower);
 
             jumpBufferCounter = 0f;
         }
@@ -119,7 +123,7 @@ public class Player : MonoBehaviour
 
     private void Flip()
     {
-        if(rb.velocity.x > 0f)
+        if (rb.velocity.x > 0f)
         {
             rbSprite.flipX = false;
         }
@@ -142,17 +146,22 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
+
+        //parent = this.gameObject.transform.parent.gameObject;
+
+
+
         if (collision.tag == "Zone-Left" && rb.velocity.x < 0f)
         {
             Camera.transform.position = Camera.transform.position + new Vector3(-30.49f, 0, 0f);
-            
+
         }
 
         if (collision.tag == "Zone-Right" && rb.velocity.x > 0f)
         {
             Camera.transform.position = Camera.transform.position + new Vector3(30.49f, 0, 0f);
         }
-        
+
         if (collision.tag == "Zone-Top" && rb.velocity.y > 0f)
         {
             Camera.transform.position = Camera.transform.position + new Vector3(0, 16.06f, 0f);
@@ -162,11 +171,11 @@ public class Player : MonoBehaviour
         {
             Camera.transform.position = Camera.transform.position + new Vector3(0, -16.06f, 0f);
         }
-        
-        
 
-        
+
+
+
     }
 
-   
+
 }

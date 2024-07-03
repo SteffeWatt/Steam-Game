@@ -46,19 +46,13 @@ public class SnapPlatform : MonoBehaviour
 
      
         
-        if (player.Active) 
-        {
-            this.direction = 1;
-            //this.gameObject.transform.position = Vector2.Lerp(startPos, endPos, 2);
-            //transform.position = Vector2.Lerp(startPos, endPos, 1.0f / 5);
-
-        }
-        else
+        if (this.gameObject.transform.position.y == startPos.position.y) 
         {
             this.direction = -1;
-
-            //this.gameObject.transform.position = Vector2.Lerp(endPos, startPos, 2);
-            //transform.position = Vector2.Lerp(endPos, startPos, 1.0f / 5);
+        }
+        else if(this.gameObject.transform.position.y == endPos.position.y)
+        {
+            this.direction = 1;
         }
 
         

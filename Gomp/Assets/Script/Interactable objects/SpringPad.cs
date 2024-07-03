@@ -7,7 +7,11 @@ public class SpringPad : MonoBehaviour
     // Start is called before the first frame update
 
 
-    public float jumpforce = 10f;
+    public float jumpforce;
+
+    public float bumpForce;
+    public float fieldOfImpact;
+    public LayerMask layerToBump;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,8 +19,12 @@ public class SpringPad : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                Debug.Log("hårruheite");
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * jumpforce, ForceMode2D.Impulse);
+                //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * jumpforce, ForceMode2D.Impulse);
+
+                Vector2 direction = collision.gameObject.transform.position - transform.position;
+
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(direction * bumpForce);
+
             }
 
         }
@@ -25,7 +33,7 @@ public class SpringPad : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * jumpforce, ForceMode2D.Impulse);
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-1,0) * jumpforce, ForceMode2D.Impulse);
             }
 
         }
