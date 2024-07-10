@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
 
-    private GameObject? parent;
+    
 
     
 
@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rbSprite = GetComponent<SpriteRenderer>();
         rbAnimator = GetComponent<Animator>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -58,7 +61,7 @@ public class Player : MonoBehaviour
             cyoteCounter -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown("space"))
+        if (Input.GetButtonDown("Jump"))
         {
             jumpBufferCounter = jumpBufferTime;
         }
@@ -85,7 +88,7 @@ public class Player : MonoBehaviour
             jumpBufferCounter = 0f;
         }
 
-        if (Input.GetKeyUp("space") && rb.velocity.y > 0f)
+        if (Input.GetButtonDown("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.35f);
             cyoteCounter = 0f;
