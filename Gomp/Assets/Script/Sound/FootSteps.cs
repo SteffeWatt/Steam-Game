@@ -16,13 +16,13 @@ public class FootSteps : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.isMoving && player.isGrounded)
-        {
-            Footsteps.SetActive(true);
-        }
-        else 
-        {
-            Footsteps.SetActive(false);
-        }
+        //if (player.isMoving && player.isGrounded)
+        //{
+        //    Footsteps.SetActive(true);
+        //}
+        //else 
+        //{
+        //    Footsteps.SetActive(false);
+        //}
     }
 }
