@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public bool Active = false;
     public bool isMoving = false;
 
-    [SerializeField] private Transform isGrounded;
+    [SerializeField] private bool isGrounded;
     [SerializeField] private LayerMask groundLayer;
     private float JumpPower = 20f;
 
@@ -40,12 +40,13 @@ public class Player : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        moveHorizontal = Input.GetAxis("Horizontal");
     }
 
     void FixedUpdate()
     {
+
+        moveHorizontal = Input.GetAxisRaw("Horizontal");
+
         rb.velocity = new Vector2(moveHorizontal * 10f, rb.velocity.y);
 
         Flip();
@@ -55,7 +56,11 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        
+        rbAnimator.SetFloat("speed", Mathf.Abs(moveHorizontal));
+        rbAnimator.SetFloat("fallSpeed", rb.velocity.y);
+        rbAnimator.SetBool("isGrounded", isGrounded);
+
+
 
         if (rb.velocity.x > 0.8 || rb.velocity.x < -0.8)
         {
@@ -66,7 +71,7 @@ public class Player : MonoBehaviour
             isMoving = false;
         }
 
-        if (IsGrounded())
+        if (isGrounded)
         {
             cyoteCounter = cyoteTime;
         }
@@ -85,16 +90,6 @@ public class Player : MonoBehaviour
         }
 
 
-
-
-
-
-
-        rbAnimator.SetFloat("speed", Mathf.Abs(moveHorizontal));
-        rbAnimator.SetFloat("fallSpeed", rb.velocity.y);
-        rbAnimator.SetBool("isGrounded", IsGrounded());
-
-
         if (jumpBufferCounter > 0f && cyoteCounter > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpPower);
@@ -102,7 +97,7 @@ public class Player : MonoBehaviour
             jumpBufferCounter = 0f;
         }
 
-        if (Input.GetButtonDown("Jump") && rb.velocity.y > 0f)
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.35f);
             cyoteCounter = 0f;
@@ -111,7 +106,7 @@ public class Player : MonoBehaviour
 
         //dessa e bare t testing
         //-------------------------
-        if (Input.GetKeyDown("e"))
+        if (Input.GetButtonDown("Fire2"))
         {
             rb.AddForce(Vector2.up * -7.5f, ForceMode2D.Impulse);
         }
@@ -121,23 +116,19 @@ public class Player : MonoBehaviour
             Active = !Active;
         }
 
-        if (Input.GetKeyDown("w"))
+        if (Input.GetButtonDown("Fire3"))
         {
             rb.AddForce(Vector2.up * 7.5f, ForceMode2D.Impulse);
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            rb.AddForce(Vector2.right * 7.5f, ForceMode2D.Impulse);
-        }
+        }       
         //-------------------------
 
 
     }
 
-    private bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(isGrounded.position, 0.2f, groundLayer);
-    }
+    //private bool IsGrounded()
+    //{
+    //    return Physics2D.OverlapCircle(isGrounded.position, 0.2f, groundLayer);
+    //}
 
     private void Flip()
     {
@@ -151,6 +142,24 @@ public class Player : MonoBehaviour
             rbSprite.flipX = true;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
