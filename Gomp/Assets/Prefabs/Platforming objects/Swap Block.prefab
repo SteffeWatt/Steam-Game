@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4152435683727933921}
-  - component: {fileID: 5142859418636073634}
   - component: {fileID: 66661180490814628}
-  m_Layer: 0
+  - component: {fileID: 4219949664149538489}
+  m_Layer: 6
   m_Name: Block
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -37,22 +37,6 @@ Transform:
   - {fileID: 1953464998993815731}
   m_Father: {fileID: 1336053885221988275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5142859418636073634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384915429568232230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd225e98091b35a41aac87e3ca0ff7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  startPoint: {fileID: 4801102988967430230}
-  endPoint: {fileID: 6526808912916659164}
-  speed: 2
 --- !u!61 &66661180490814628
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -98,6 +82,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9, y: 0.05}
   m_EdgeRadius: 0
+--- !u!114 &4219949664149538489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384915429568232230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078a908ac216ee749b87f91a0fc84243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platform: {fileID: 4152435683727933921}
+  startPos: {fileID: 7916137625616643405}
+  endPos: {fileID: 36550632333645403}
+  speed: 3
 --- !u!1 &556483943775652025
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 4738016854792381833}
   - component: {fileID: 4548136866713268881}
   - component: {fileID: 6756281217590316324}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: topleft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.45, y: 0}
+  m_Offset: {x: -0.04, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -260,7 +260,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &2328696441760746573
 GameObject:
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 4607723608741020408}
   - component: {fileID: 3693199104818265285}
   - component: {fileID: 566185110053980954}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: botleft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 1953464998993815731}
   - component: {fileID: 5433578230511402868}
   - component: {fileID: 4276794476855932098}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: botright
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 7079299108572867590}
   - component: {fileID: 3697239442460587305}
   - component: {fileID: 3894557001543970222}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: topright
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +670,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.45, y: 0}
+  m_Offset: {x: 0.04, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -681,7 +681,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &6526808912916659164
 GameObject:
@@ -708,7 +708,7 @@ Transform:
   m_GameObject: {fileID: 6526808912916659164}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 0, z: 0}
+  m_LocalPosition: {x: 13.52, y: 0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

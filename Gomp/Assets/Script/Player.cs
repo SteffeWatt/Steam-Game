@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer rbSprite;
     public Animator rbAnimator;
+    private CapsuleCollider2D colider;
 
     public bool Active = false;
     public bool isMoving = false;
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rbSprite = GetComponent<SpriteRenderer>();
         rbAnimator = GetComponent<Animator>();
+        colider = transform.GetComponent<CapsuleCollider2D>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -58,7 +60,7 @@ public class Player : MonoBehaviour
 
         rbAnimator.SetFloat("speed", Mathf.Abs(moveHorizontal));
         rbAnimator.SetFloat("fallSpeed", rb.velocity.y);
-        rbAnimator.SetBool("isGrounded", isGrounded);
+        rbAnimator.SetBool("isGrounded", IsGrounded());
 
 
 
@@ -71,7 +73,7 @@ public class Player : MonoBehaviour
             isMoving = false;
         }
 
-        if (isGrounded)
+        if (IsGrounded())
         {
             cyoteCounter = cyoteTime;
         }
@@ -125,10 +127,27 @@ public class Player : MonoBehaviour
 
     }
 
-    //private bool IsGrounded()
-    //{
-    //    return Physics2D.OverlapCircle(isGrounded.position, 0.2f, groundLayer);
-    //}
+    private bool IsGrounded()
+    {
+        float height = 0.2f;
+
+        RaycastHit2D hit = Physics2D.BoxCast(colider.bounds.center, colider.bounds.size - new Vector3(0.1f,0f,0f), 0f, Vector2.down, height, groundLayer);
+        Color ray;
+        if (hit.collider != null)
+        {
+            ray = Color.green;
+        } else
+        {
+            ray = Color.red;
+        }
+
+        Debug.DrawRay(colider.bounds.center + new Vector3(colider.bounds.extents.x, 0), Vector2.down * (colider.bounds.extents.y + height), ray);
+        Debug.DrawRay(colider.bounds.center - new Vector3(colider.bounds.extents.x, 0), Vector2.down * (colider.bounds.extents.y + height), ray);
+        Debug.DrawRay(colider.bounds.center - new Vector3(colider.bounds.extents.x, colider.bounds.extents.y + height), Vector2.right * (colider.bounds.extents.x * 2f), ray);
+
+
+        return hit.collider != null;
+    }
 
     private void Flip()
     {
@@ -143,22 +162,22 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
 
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = false;
+    //    }
+    //}
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = true;
+    //    }
+    //}
 
 
     private void OnTriggerEnter2D(Collider2D collision)

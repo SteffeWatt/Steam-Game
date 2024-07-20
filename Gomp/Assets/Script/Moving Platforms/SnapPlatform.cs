@@ -7,8 +7,7 @@ public class SnapPlatform : MonoBehaviour
 {
 
 
-    [SerializeField] Player player;
-
+    
     public Transform platform;
     public Transform startPos;
     public Transform endPos;
