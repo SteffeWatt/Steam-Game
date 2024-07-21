@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public bool Active = false;
     public bool isMoving = false;
 
-    [SerializeField] private bool isGrounded;
+    
     [SerializeField] private LayerMask groundLayer;
     private float JumpPower = 20f;
 
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
     {
         float height = 0.2f;
 
-        RaycastHit2D hit = Physics2D.BoxCast(colider.bounds.center, colider.bounds.size - new Vector3(0.1f,0f,0f), 0f, Vector2.down, height, groundLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(colider.bounds.center, colider.bounds.size - new Vector3(0.2f,0.15f,0f), 0f, Vector2.down, height, groundLayer);
         Color ray;
         if (hit.collider != null)
         {
