@@ -85,7 +85,9 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             jumpBufferCounter = jumpBufferTime;
+            
         }
+
         else
         {
             jumpBufferCounter -= Time.deltaTime;
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour
         if (jumpBufferCounter > 0f && cyoteCounter > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpPower);
+            Active = !Active;
 
             jumpBufferCounter = 0f;
         }
@@ -111,11 +114,6 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             rb.AddForce(Vector2.up * -7.5f, ForceMode2D.Impulse);
-        }
-
-        if (Input.GetKeyDown("q"))
-        {
-            Active = !Active;
         }
 
         if (Input.GetButtonDown("Fire3"))
@@ -162,36 +160,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
-
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        isGrounded = true;
-    //    }
-    //}
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-
-        //parent = this.gameObject.transform.parent.gameObject;
-
-
-
         if (collision.tag == "Zone-Left" && rb.velocity.x < 0f)
         {
             Camera.transform.position = Camera.transform.position + new Vector3(-30.49f, 0, 0f);
-
         }
 
         if (collision.tag == "Zone-Right" && rb.velocity.x > 0f)
