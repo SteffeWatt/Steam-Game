@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private CapsuleCollider2D colider;
 
     public bool Active = false;
+    public int Jumps = 0;
     public bool isMoving = false;
 
     
@@ -98,6 +99,8 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpPower);
             Active = !Active;
+            Jumps++;
+            if(Jumps == 4) { Jumps = 0; }
 
             jumpBufferCounter = 0f;
         }
