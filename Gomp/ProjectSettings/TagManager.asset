@@ -16,6 +16,10 @@ TagManager:
   - CameraZone
   - StartPos
   - EndPos
+  - Safe-Right
+  - Safe-Left
+  - Safe-Bot
+  - Safe-Top
   layers:
   - Default
   - TransparentFX

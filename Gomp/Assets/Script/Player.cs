@@ -179,14 +179,36 @@ public class Player : MonoBehaviour
 
         if (collision.tag == "Zone-Top" && rb.velocity.y > 0f)
         {
-            Camera.transform.position = Camera.transform.position + new Vector3(0, 16.06f, 0f);
+            Camera.transform.position = Camera.transform.position + new Vector3(0, 17.8f, 0f);
         }
 
         if (collision.tag == "Zone-Bot" && rb.velocity.y < 0f)
         {
-            Camera.transform.position = Camera.transform.position + new Vector3(0, -16.06f, 0f);
+            Camera.transform.position = Camera.transform.position + new Vector3(0, -17.8f, 0f);
         }
 
+        //safe checks incase player goes outside of camera zone, this also fixes issue when player is on moving platform
+
+        if (collision.tag == "Safe-Left")
+        {
+            Camera.transform.position = Camera.transform.position + new Vector3(-30.49f, 0, 0f);
+        }
+
+        if (collision.tag == "Safe-Right")
+        {
+            Camera.transform.position = Camera.transform.position + new Vector3(30.49f, 0, 0f);
+        }
+
+
+        if (collision.tag == "Safe-Top")
+        {
+            Camera.transform.position = Camera.transform.position + new Vector3(0, 17.8f, 0f);
+        }
+
+        if (collision.tag == "Safe-Bot")
+        {
+            Camera.transform.position = Camera.transform.position + new Vector3(0, -17.8f, 0f);
+        }
 
 
 
