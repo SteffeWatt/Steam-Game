@@ -16,16 +16,10 @@ public class Invisbleblocks : MonoBehaviour
         tileColor = this.gameObject.GetComponent<SpriteRenderer>().color;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+  
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-            Debug.Log("enter camera zone");
             //this.gameObject.GetComponent<Tilemap>().color = new Color(tileColor.r, tileColor.g, tileColor.b, 0.25f);
             Fade(true);
         
@@ -34,7 +28,6 @@ public class Invisbleblocks : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         
-            Debug.Log("enter camera zone");
             //this.gameObject.GetComponent<Tilemap>().color = new Color(tileColor.r, tileColor.g, tileColor.b, 1f);
             Fade(false);
         

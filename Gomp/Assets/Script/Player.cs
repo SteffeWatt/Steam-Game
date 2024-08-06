@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +17,9 @@ public class Player : MonoBehaviour
     public bool Active = false;
     public int Jumps = 0;
     public bool isMoving = false;
+    public bool isGrounded = false;
+    public ParticleSystem jumpDust;
+    public ParticleSystem runDust;
 
     
     [SerializeField] private LayerMask groundLayer;
@@ -74,6 +78,11 @@ public class Player : MonoBehaviour
             isMoving = false;
         }
 
+        if (isMoving && isGrounded)
+        {
+            CreateRunDust();
+        }
+
         if (IsGrounded())
         {
             cyoteCounter = cyoteTime;
@@ -85,8 +94,8 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            jumpBufferCounter = jumpBufferTime;
             
+            jumpBufferCounter = jumpBufferTime;
         }
 
         else
@@ -98,6 +107,7 @@ public class Player : MonoBehaviour
         if (jumpBufferCounter > 0f && cyoteCounter > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpPower);
+            CreateJumpDust();
             Active = !Active;
             Jumps++;
             if(Jumps == 4) { Jumps = 0; }
@@ -137,15 +147,18 @@ public class Player : MonoBehaviour
         if (hit.collider != null)
         {
             ray = Color.green;
+            isGrounded = true;
         } else
         {
             ray = Color.red;
+            isGrounded = false;
         }
 
         Debug.DrawRay(colider.bounds.center + new Vector3(colider.bounds.extents.x, 0), Vector2.down * (colider.bounds.extents.y + height), ray);
         Debug.DrawRay(colider.bounds.center - new Vector3(colider.bounds.extents.x, 0), Vector2.down * (colider.bounds.extents.y + height), ray);
         Debug.DrawRay(colider.bounds.center - new Vector3(colider.bounds.extents.x, colider.bounds.extents.y + height), Vector2.right * (colider.bounds.extents.x * 2f), ray);
 
+        
 
         return hit.collider != null;
     }
@@ -161,6 +174,16 @@ public class Player : MonoBehaviour
         {
             rbSprite.flipX = true;
         }
+    }
+
+    private void CreateJumpDust()
+    {
+        jumpDust.Play();
+    }
+
+    private void CreateRunDust()
+    {
+        runDust.Play();
     }
 
 

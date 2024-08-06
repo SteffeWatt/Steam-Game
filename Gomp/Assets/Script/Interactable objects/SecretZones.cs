@@ -25,7 +25,6 @@ public class SecretZones : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
-            Debug.Log("enter secret");
             //this.gameObject.GetComponent<Tilemap>().color = new Color(tileColor.r, tileColor.g, tileColor.b, 0.25f);
             Fade(true);
         }
@@ -35,7 +34,6 @@ public class SecretZones : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
-            Debug.Log("Leave secret");
             //this.gameObject.GetComponent<Tilemap>().color = new Color(tileColor.r, tileColor.g, tileColor.b, 1f);
             Fade(false);
         }
